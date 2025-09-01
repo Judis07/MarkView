@@ -1,12 +1,13 @@
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import MarkdownEditor from "./components/MarkdownEditor";
 
 function App() {
   return (
-    <section className="-10 flex flex-col h-screen bg-black">
+    <section className=" flex flex-col  bg-black">
       <Header />
 
-      <main className="flex-1"></main>
+      <MarkdownEditor />
 
       <Footer />
     </section>

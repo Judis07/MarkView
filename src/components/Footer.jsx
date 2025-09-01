@@ -12,7 +12,7 @@ const Footer = () => {
       {/* Right side */}
       <div className="flex space-x-4">
         <a
-          href="https://github.com/yourusername/markview"
+          href="https://github.com/Judis07/MarkView"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:underline"

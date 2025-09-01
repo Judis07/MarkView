@@ -1,0 +1,53 @@
+import MarkdownIt from "markdown-it";
+import hljs from "highlight.js";
+import { useEffect, useState } from "react";
+import MarkdownPreview from "./MarkdownPreview";
+
+const MarkdownEditor = () => {
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
+
+  useEffect(() => {
+    const md = new MarkdownIt({
+      html: true,
+      linkify: true,
+      typographer: true,
+      breaks: true,
+      highlight: function (str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return `<pre class="hljs"><code>${
+              hljs.highlight(str, { language: lang }).value
+            }</code></pre>`;
+          } catch (__) {}
+        }
+        return `<pre class="hljs"><code>${md.utils.escapeHtml(
+          str
+        )}</code></pre>`;
+      },
+    });
+
+    const result = md.render(input);
+    console.log(result);
+    setOutput(result);
+  }, [input]);
+
+  return (
+    <div className="flex h-screen">
+      {/* Editor */}
+      <textarea
+        className="w-1/2 p-4 font-serif text-sm border-r border-gray-200 dark:border-gray-700 
+               bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 
+               focus:outline-none resize-none"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Write your markdown here..."
+      />
+
+      {/* Preview */}
+      <MarkdownPreview input={input} />
+    </div>
+  );
+};
+
+export default MarkdownEditor;
